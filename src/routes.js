@@ -18,12 +18,15 @@
 import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
 import TableList from "views/TableList.js";
+import ClientList from "views/ClientList.js";
+
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
-
+import ClientForm from "views/ClientForm";
+import IssuanceHistory from "views/IssuanceHistory";
 const dashboardRoutes = [
   {
     upgrade: true,
@@ -40,18 +43,46 @@ const dashboardRoutes = [
     component: Dashboard,
     layout: "/admin",
   },
+  // {
+  //   path: "/user",
+  //   name: "User Profile",
+  //   icon: "nc-icon nc-circle-09",
+  //   component: UserProfile,
+  //   layout: "/admin",
+  // },
+  // {
+  //   path: "/table",
+  //   name: "Table List",
+  //   icon: "nc-icon nc-notes",
+  //   component: TableList,
+  //   layout: "/admin",
+  // },
   {
-    path: "/user",
-    name: "User Profile",
-    icon: "nc-icon nc-circle-09",
-    component: UserProfile,
+    path: "/ClientList",
+    name: "Kliente List",
+    icon: "nc-icon nc-notes",
+    component: ClientList,
     layout: "/admin",
   },
   {
-    path: "/table",
-    name: "Table List",
-    icon: "nc-icon nc-notes",
-    component: TableList,
+    path:"/ClientForm",
+    name: "Add Kliente",
+    icon: "nc-icon nc-circle-09",
+    component: ClientForm,
+    layout: "/admin",
+  },
+  // {
+  //   path: "/ClientForm/:id",
+  //   name: "Add Kliente",
+  //   icon: "nc-icon nc-circle-09",
+  //   component: ClientForm,
+  //   layout: "/admin",
+  // },
+  {
+    path: "/IssuanceHistory",
+    name: "Issuance History",
+    icon: "nc-icon nc-circle-09",
+    component: IssuanceHistory,
     layout: "/admin",
   },
   // {
