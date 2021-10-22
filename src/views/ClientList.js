@@ -18,6 +18,7 @@ import { useEffect } from "react";
 
 function ClientList() {
   const [tableData, setTableData] = React.useState([{
+    Checked: true,
     Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
     FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
   }])
@@ -27,32 +28,35 @@ function ClientList() {
   const [filterTableData, setFilterTableData] = React.useState([])
   useEffect(() => {
     setTableData([{
+      Checked: false,
       Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "2", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "3", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "4", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "5", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },])
-
-
-
   }, [])
 
   useEffect(() => {
@@ -60,16 +64,18 @@ function ClientList() {
   }, [tableData])
 
   useEffect(() => {
-    let tempTable = [...tableData]
-    tempTable = tempTable.filter(item => {
+    let tempTable = []
+    tableData.map((item, index) => {
       if (item.LastName.includes(toSearch) ||
         item.FirstName.includes(toSearch) ||
-        item.Email.includes(toSearch) || !toSearch) {
-        return true
+        item.Email.includes(toSearch) ||
+        item.MaxBorrowAmount.includes(toSearch) ||
+        !toSearch) {
+        tempTable.push(item)
       }
-      return false
     })
     setFilterTableData(tempTable)
+
 
   }, [toSearch])
 
@@ -78,7 +84,7 @@ function ClientList() {
     tempTable[index].Status = !tempTable[index].Status
     setTableData(tempTable)
   }
-  
+
   const deleteRow = (itemToDelete) => {
     setTableData(tableData.filter((item, index) => index !== itemToDelete))
   }
@@ -109,6 +115,14 @@ function ClientList() {
                   style={{ backgroundColor: "green" }}
                   type="submit"
                   variant="info"
+                  onClick={() => {
+                    setTableData(tableData.map((item) => {
+                        if(item.Checked === true){
+                          item.Status = true
+                        }
+                        return item
+                    })) 
+                  }}
                 >
                   Active
                 </Button>
@@ -118,6 +132,14 @@ function ClientList() {
                   style={{ backgroundColor: "red" }}
                   type="submit"
                   variant="info"
+                  onClick={() => {
+                    setTableData(tableData.map((item) => {
+                        if(item.Checked === true){
+                          item.Status = false
+                        }
+                        return item
+                    })) 
+                  }}
                 >
                   Block
                 </Button>
@@ -151,12 +173,22 @@ function ClientList() {
                   </thead>
                   <tbody>
 
-                    {filterTableData.map((item, index) => {
+                    {tableData.map((item, index) => {
+                      if (!filterTableData.includes(item)) {
+                        return
+                      }
                       return (
                         <tr >
                           <td> <Form.Control
                             placeholder="Fax"
                             type="checkbox"
+                            defaultChecked={item.Checked}
+                            onChange={() => {
+                              let temp = [...tableData]
+                              temp[index].Checked = !temp[index].Checked
+                              setTableData(temp)
+                            }}
+
                           ></Form.Control>
                           </td>
                           <td> {item.Code} </td>
@@ -174,7 +206,8 @@ function ClientList() {
                             :
                             <Button onClick={() => toggleStatus(index)}>
                               <i className="fa fa-ban" style={{ color: "red", textAlign: "center" }} />
-                            </Button>}
+                            </Button>
+                          }
                           </td>
                           <td align="center">
                             <Button onClick={() => history.push('/admin/IssuanceHistory/' + index)}>
