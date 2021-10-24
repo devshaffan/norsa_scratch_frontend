@@ -16,50 +16,81 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
 
-function IssuanceHistory() {
+function MerchantTypeList() {
   const [tableData, setTableData] = React.useState([{
+    Checked: false,
     Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
     FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
   }])
   const history = useHistory();
   const [status, setStatus] = React.useState(false)
-
+  const [toSearch, setToSearch] = React.useState("")
+  const [filterTableData, setFilterTableData] = React.useState([])
   useEffect(() => {
+    setFilterTableData([])
     setTableData([{
+      Checked: false,
       Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "2", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "3", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "4", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
+      Checked: false,
       Code: "5", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },
     {
-      Code: "6", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+      Checked: false,
+      Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },])
 
   }, [])
+
+
+
+  useEffect(() => {
+    let tempTable = []
+    tableData.map((item, index) => {
+      if ((item.LastName.includes(toSearch) ||
+        item.FirstName.includes(toSearch) ||
+        item.Email.includes(toSearch) ||
+        item.MaxBorrowAmount.includes(toSearch))) {
+
+      }
+      else {
+        tempTable.push(item)
+      }
+    })
+    setFilterTableData(tempTable)
+
+
+  }, [toSearch])
 
   const toggleStatus = (index) => {
     let tempTable = [...tableData]
     tempTable[index].Status = !tempTable[index].Status
     setTableData(tempTable)
   }
+
   const deleteRow = (itemToDelete) => {
     setTableData(tableData.filter((item, index) => index !== itemToDelete))
   }
+ 
   return (
     <>
       <Container fluid>
@@ -87,6 +118,15 @@ function IssuanceHistory() {
                   style={{ backgroundColor: "green" }}
                   type="submit"
                   variant="info"
+                  onClick={() => {
+                    setTableData(tableData.map((item) => {
+                      if (item.Checked === true) {
+                        item.Status = true
+                        item.Checked = false
+                      }
+                      return item
+                    }))
+                  }}
                 >
                   Active
                 </Button>
@@ -96,10 +136,30 @@ function IssuanceHistory() {
                   style={{ backgroundColor: "red" }}
                   type="submit"
                   variant="info"
-                  
+                  onClick={() => {
+                    setTableData(tableData.map((item) => {
+                      if (item.Checked === true) {
+                        item.Status = false
+                        item.Checked = false
+
+                      }
+                      return item
+                    }))
+                  }}
                 >
                   Block
                 </Button>
+                <br />
+                <Col md="4">
+                  <Form.Group>
+                    <label>  Filter
+                    </label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setToSearch(e.target.value)}
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
                 <Table className="table-hover">
                   <thead>
                     <tr>
@@ -120,11 +180,22 @@ function IssuanceHistory() {
                   <tbody>
 
                     {tableData.map((item, index) => {
+
+                      if (filterTableData.includes(item)) {
+                        return
+                      }
                       return (
                         <tr key={index} >
                           <td> <Form.Control
                             placeholder="Fax"
                             type="checkbox"
+                            checked={item.Checked}
+                            onChange={() => {
+                              let temp = [...tableData]
+                              temp[index].Checked = !temp[index].Checked
+                              setTableData(temp)
+                            }}
+
                           ></Form.Control>
                           </td>
                           <td> {item.Code} </td>
@@ -142,15 +213,16 @@ function IssuanceHistory() {
                             :
                             <Button onClick={() => toggleStatus(index)}>
                               <i className="fa fa-ban" style={{ color: "red", textAlign: "center" }} />
-                            </Button>}
+                            </Button>
+                          }
                           </td>
                           <td align="center">
-                            <Button onClick={() => history.push('/admin/ClientForm')}>
+                            <Button onClick={() => history.push('/admin/IssuanceHistory/?id=' + index)}>
                               <i className="nc-icon nc-notes" style={{ color: "black" }} />
                             </Button>
                           </td>
                           <td align="center">
-                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/' + index)} />
+                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
                             &nbsp; &nbsp;
                             <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
                           </td>
@@ -175,4 +247,4 @@ function IssuanceHistory() {
   );
 }
 
-export default IssuanceHistory;
+export default MerchantTypeList;

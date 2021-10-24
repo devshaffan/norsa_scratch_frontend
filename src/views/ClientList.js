@@ -18,7 +18,7 @@ import { useEffect } from "react";
 
 function ClientList() {
   const [tableData, setTableData] = React.useState([{
-    Checked: true,
+    Checked: false,
     Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
     FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
   }])
@@ -27,6 +27,7 @@ function ClientList() {
   const [toSearch, setToSearch] = React.useState("")
   const [filterTableData, setFilterTableData] = React.useState([])
   useEffect(() => {
+    setFilterTableData([])
     setTableData([{
       Checked: false,
       Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
@@ -57,20 +58,21 @@ function ClientList() {
       Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
       FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
     },])
+
   }, [])
 
-  useEffect(() => {
-    setFilterTableData([...tableData])
-  }, [tableData])
+
 
   useEffect(() => {
     let tempTable = []
     tableData.map((item, index) => {
-      if (item.LastName.includes(toSearch) ||
+      if ((item.LastName.includes(toSearch) ||
         item.FirstName.includes(toSearch) ||
         item.Email.includes(toSearch) ||
-        item.MaxBorrowAmount.includes(toSearch) ||
-        !toSearch) {
+        item.MaxBorrowAmount.includes(toSearch))) {
+
+      }
+      else {
         tempTable.push(item)
       }
     })
@@ -88,6 +90,7 @@ function ClientList() {
   const deleteRow = (itemToDelete) => {
     setTableData(tableData.filter((item, index) => index !== itemToDelete))
   }
+ 
   return (
     <>
       <Container fluid>
@@ -117,11 +120,12 @@ function ClientList() {
                   variant="info"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
-                        if(item.Checked === true){
-                          item.Status = true
-                        }
-                        return item
-                    })) 
+                      if (item.Checked === true) {
+                        item.Status = true
+                        item.Checked = false
+                      }
+                      return item
+                    }))
                   }}
                 >
                   Active
@@ -134,11 +138,13 @@ function ClientList() {
                   variant="info"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
-                        if(item.Checked === true){
-                          item.Status = false
-                        }
-                        return item
-                    })) 
+                      if (item.Checked === true) {
+                        item.Status = false
+                        item.Checked = false
+
+                      }
+                      return item
+                    }))
                   }}
                 >
                   Block
@@ -174,15 +180,16 @@ function ClientList() {
                   <tbody>
 
                     {tableData.map((item, index) => {
-                      if (!filterTableData.includes(item)) {
+
+                      if (filterTableData.includes(item)) {
                         return
                       }
                       return (
-                        <tr >
+                        <tr key={index} >
                           <td> <Form.Control
                             placeholder="Fax"
                             type="checkbox"
-                            defaultChecked={item.Checked}
+                            checked={item.Checked}
                             onChange={() => {
                               let temp = [...tableData]
                               temp[index].Checked = !temp[index].Checked
@@ -210,12 +217,12 @@ function ClientList() {
                           }
                           </td>
                           <td align="center">
-                            <Button onClick={() => history.push('/admin/IssuanceHistory/' + index)}>
+                            <Button onClick={() => history.push('/admin/IssuanceHistory/?id=' + index)}>
                               <i className="nc-icon nc-notes" style={{ color: "black" }} />
                             </Button>
                           </td>
                           <td align="center">
-                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/' + index)} />
+                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
                             &nbsp; &nbsp;
                             <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
                           </td>

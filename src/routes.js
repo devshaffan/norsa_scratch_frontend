@@ -27,6 +27,8 @@ import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
 import ClientForm from "views/ClientForm";
 import IssuanceHistory from "views/IssuanceHistory";
+import MerchantTypeList from "views/MerchantTypeList";
+import MerchantList from "views/MerchantList";
 const dashboardRoutes = [
   {
     upgrade: true,
@@ -71,6 +73,22 @@ const dashboardRoutes = [
     component: ClientForm,
     layout: "/admin",
   },
+  {
+    path: "/MerchantList",
+    name: "Merchants",
+    icon: "nc-icon nc-notes",
+    component: MerchantList,
+    layout: "/admin",
+  },
+ 
+  {
+    path: "/MerchantTypeList",
+    name: "Merchant Types ",
+    icon: "nc-icon nc-notes",
+    component: MerchantTypeList,
+    layout: "/admin",
+  },
+ 
   // {
   //   path: "/ClientForm/:id",
   //   name: "Add Kliente",
