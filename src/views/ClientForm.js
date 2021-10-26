@@ -15,6 +15,22 @@ import {
 
 function ClientForm() {
     const queryParams = new URLSearchParams(window.location.search);
+    const [ifUpdate, setIfUpdate] = React.useState(false)
+    const [ClientID, setClientID] = React.useState()
+
+    useEffect(() => {
+       
+        const params = queryParams.get("id")
+        if(id != null) {
+            setIfUpdate(true)
+            setClientID(params)
+        }
+        else{
+            setIfUpdate(false)
+            setClientID(null)
+        }
+    }, [])
+    
 
     return (
         <>
