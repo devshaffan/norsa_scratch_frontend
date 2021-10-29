@@ -29,6 +29,8 @@ import ClientForm from "views/ClientForm";
 import IssuanceHistory from "views/IssuanceHistory";
 import MerchantTypeList from "views/MerchantTypeList";
 import MerchantList from "views/MerchantList";
+import MerchantForm from "views/MerchantForm";
+import MerchantTypeForm from "views/MerchantTypeForm";
 const dashboardRoutes = [
   {
     upgrade: true,
@@ -73,11 +75,19 @@ const dashboardRoutes = [
     component: ClientForm,
     layout: "/admin",
   },
+  
   {
     path: "/MerchantList",
     name: "Merchants",
     icon: "nc-icon nc-notes",
     component: MerchantList,
+    layout: "/admin",
+  },
+  {
+    path:"/MerchantForm",
+    name: "Add Merchant",
+    icon: "nc-icon nc-circle-09",
+    component: MerchantForm,
     layout: "/admin",
   },
  
@@ -86,6 +96,14 @@ const dashboardRoutes = [
     name: "Merchant Types ",
     icon: "nc-icon nc-notes",
     component: MerchantTypeList,
+    layout: "/admin",
+  },
+  
+  {
+    path:"/MerchantTypeForm",
+    name: "Add Kliente",
+    icon: "nc-icon nc-circle-09",
+    component: MerchantTypeForm,
     layout: "/admin",
   },
  

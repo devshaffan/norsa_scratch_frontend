@@ -101,7 +101,7 @@ function MerchantList() {
                                     className="btn-fill pull-right"
                                     type="submit"
                                     variant="info"
-                                    onClick={() => history.push('/admin/ClientForm')}
+                                    onClick={() => history.push('/admin/MerchantForm')}
                                 >
                                     ADD
                                 </Button>
@@ -202,7 +202,7 @@ function MerchantList() {
                                                     </td>
                                                     
                                                     <td align="center">
-                                                        <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
+                                                        <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/MerchantForm/?id=' + index)} />
                                                         &nbsp; &nbsp;
                                                         <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
                                                     </td>

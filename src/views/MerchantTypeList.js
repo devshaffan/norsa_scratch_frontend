@@ -19,8 +19,7 @@ import { useEffect } from "react";
 function MerchantTypeList() {
   const [tableData, setTableData] = React.useState([{
     Checked: false,
-    Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
-    FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
+    Title: "",
   }])
   const history = useHistory();
   const [status, setStatus] = React.useState(false)
@@ -30,33 +29,27 @@ function MerchantTypeList() {
     setFilterTableData([])
     setTableData([{
       Checked: false,
-      Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan",
     },
     {
       Checked: false,
-      Code: "2", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan"
     },
     {
       Checked: false,
-      Code: "3", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan"
     },
     {
       Checked: false,
-      Code: "4", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan"
     },
     {
       Checked: false,
-      Code: "5", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan"
     },
     {
       Checked: false,
-      Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+      Title: "shaffan"
     },])
 
   }, [])
@@ -66,10 +59,7 @@ function MerchantTypeList() {
   useEffect(() => {
     let tempTable = []
     tableData.map((item, index) => {
-      if ((item.LastName.includes(toSearch) ||
-        item.FirstName.includes(toSearch) ||
-        item.Email.includes(toSearch) ||
-        item.MaxBorrowAmount.includes(toSearch))) {
+      if (item.Title.includes(toSearch)) {
 
       }
       else {
@@ -90,7 +80,7 @@ function MerchantTypeList() {
   const deleteRow = (itemToDelete) => {
     setTableData(tableData.filter((item, index) => index !== itemToDelete))
   }
- 
+
   return (
     <>
       <Container fluid>
@@ -108,7 +98,7 @@ function MerchantTypeList() {
                   className="btn-fill pull-right"
                   type="submit"
                   variant="info"
-                  onClick={() => history.push('/admin/ClientForm')}
+                  onClick={() => history.push('/admin/MerchantTypeForm')}
                 >
                   ADD
                 </Button>
@@ -164,17 +154,8 @@ function MerchantTypeList() {
                   <thead>
                     <tr>
                       <th className="border-0"> st </th>
-                      <th className="border-0">Code</th>
-                      <th className="border-0">First Nomber</th>
-                      <th className="border-0">Last Nomber</th>
-                      <th className="border-0">Email</th>
-                      <th className="border-0">Tell Celluar</th>
-                      <th className="border-0">Ta taraha na</th>
-                      <th className="border-0">Fax</th>
-                      <th className="border-0">Kredito Maksimo</th>
-                      <th className="border-0">Status</th>
-                      <th className="border-0">Issuance History</th>
-                      <th className="border-0">Actions</th>
+                      <th className="border-0">Title</th>
+
                     </tr>
                   </thead>
                   <tbody>
@@ -198,14 +179,8 @@ function MerchantTypeList() {
 
                           ></Form.Control>
                           </td>
-                          <td> {item.Code} </td>
-                          <td> {item.FirstName} </td>
-                          <td> {item.LastName} </td>
-                          <td> {item.Email} </td>
-                          <td> {item.WorkNo} </td>
-                          <td> {item.WorksAt} </td>
-                          <td> {item.Fax} </td>
-                          <td> {item.MaxBorrowAmount} </td>
+                          <td> {item.Title} </td>
+
                           <td> {item.Status ?
                             <Button onClick={() => toggleStatus(index)}>
                               <i className="fa fa-toggle-on" style={{ color: "green", textAlign: "center" }} />
