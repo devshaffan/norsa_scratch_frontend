@@ -29,27 +29,27 @@ function MerchantList() {
         setFilterTableData([])
         setTableData([{
             Checked: false,
-            Code: "1", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "1", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },
         {
             Checked: false,
-            Code: "2", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "2", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },
         {
             Checked: false,
-            Code: "3", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "3", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },
         {
             Checked: false,
-            Code: "4", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "4", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },
         {
             Checked: false,
-            Code: "5", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "5", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },
         {
             Checked: false,
-            Code: "6", Name: "shaffan", AccountNo: "nasir", BankName: "none", Statue: false
+            Code: "6", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
         },])
 
     }, [])

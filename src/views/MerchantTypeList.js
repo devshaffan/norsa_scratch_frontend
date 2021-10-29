@@ -19,7 +19,7 @@ import { useEffect } from "react";
 function MerchantTypeList() {
   const [tableData, setTableData] = React.useState([{
     Checked: false,
-    Title: "",
+    Title: "", Status : false
   }])
   const history = useHistory();
   const [status, setStatus] = React.useState(false)
@@ -30,26 +30,32 @@ function MerchantTypeList() {
     setTableData([{
       Checked: false,
       Title: "shaffan",
+      Status : false
     },
     {
       Checked: false,
-      Title: "shaffan"
+      Title: "shaffan",
+      Status : false
     },
     {
       Checked: false,
-      Title: "shaffan"
+      Title: "shaffan",
+      Status : false
     },
     {
       Checked: false,
-      Title: "shaffan"
+      Title: "shaffan",
+      Status : false
     },
     {
       Checked: false,
-      Title: "shaffan"
+      Title: "shaffan",
+      Status : false
     },
     {
       Checked: false,
-      Title: "shaffan"
+      Title: "shaffan",
+      Status : false
     },])
 
   }, [])
