@@ -32,7 +32,6 @@ function ClientForm() {
     useEffect(() => {
 
         const params = queryParams.get("id")
-        alert(params)
         if (params != null) {
             setClientID(params)
         }
