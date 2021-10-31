@@ -21,13 +21,12 @@ import getClientList from "services/client";
 function ClientList() {
   const [tableData, setTableData] = React.useState([{
     Checked: false,
-    Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
-    FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
+    id : "", Code: "", FirstName: "", LastName: "", WorkNo: "", ContactNo: "", WorksAt: "", Email: "",
+    FaxNumber: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
   }])
   const history = useHistory();
   const [toSearch, setToSearch] = React.useState("")
   const [filterTableData, setFilterTableData] = React.useState([])
-  const [token, setToken] = React.useState(null);
   const [formData, setFormData] = React.useState({
     email: "anasmisbah@yahoo.com",
     password: "12345678"
@@ -41,6 +40,7 @@ function ClientList() {
     setFilterTableData([])
     getClientList().
       then(function (response) {
+        console.log(response.data)
         setTableData(response.data)
       })
       .catch(function (error) {
@@ -82,14 +82,14 @@ function ClientList() {
 
 
 
+
   useEffect(() => {
 
     let tempTable = []
     tableData.map((item, index) => {
       if ((item.LastName.includes(toSearch) ||
         item.FirstName.includes(toSearch) ||
-        item.Email.includes(toSearch) ||
-        item.MaxBorrowAmount.includes(toSearch))) {
+        item.Email.includes(toSearch) )) {
 
       }
       else {
@@ -222,7 +222,7 @@ function ClientList() {
                           <td> {item.Email} </td>
                           <td> {item.WorkNo} </td>
                           <td> {item.WorksAt} </td>
-                          <td> {item.Fax} </td>
+                          <td> {item.FaxNumber} </td>
                           <td> {item.MaxBorrowAmount} </td>
                           <td> {item.Status ?
                             <Button onClick={() => toggleStatus(index)}>
@@ -240,7 +240,7 @@ function ClientList() {
                             </Button>
                           </td>
                           <td >
-                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
+                            <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + item.id)} />
                             &nbsp; &nbsp;
                             <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
                           </td>

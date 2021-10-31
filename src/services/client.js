@@ -14,10 +14,11 @@ export default function getClientList() {
 }
 
 export function getClientData(id) {
+    alert(id)
     const token = getToken()
     if (!token) return "Authentication Fail Sign In agian"
 
-    return axios.get(address + '/api/clients/getClientById/?id=' + id, {
+    return axios.get(address + '/api/clients/getClientById/' + id, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token

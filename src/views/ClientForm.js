@@ -15,6 +15,7 @@ import {
 import { useHistory } from 'react-router-dom';
 
 import { useEffect } from "react";
+import { getClientData } from "services/client";
 
 function ClientForm() {
     const history = useHistory();
@@ -31,6 +32,7 @@ function ClientForm() {
     useEffect(() => {
 
         const params = queryParams.get("id")
+        alert(params)
         if (params != null) {
             setClientID(params)
         }
@@ -45,7 +47,16 @@ function ClientForm() {
             // get client data
             const response = null;
             //setFormData(response)
+            return;
         }
+        getClientData(ClientID)
+        .then(function(response){
+            console.log(response)
+            // setFormData(response.data)
+        })
+        .catch(function(error){
+            console.log("cannot fetch the data with an " + error)
+        })
     }, [ClientID])
     const { Code, FirstName, LastName, WorkNo, ContactNo, WorksAt,
         Email, FaxNumber, Status, MaxBorrowAmount, Dealer_id } = formData
