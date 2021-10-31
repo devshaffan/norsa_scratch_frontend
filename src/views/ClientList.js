@@ -15,7 +15,9 @@ import {
 } from "react-bootstrap";
 import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
-
+import checkUser from "services/auth";
+import { login } from "services/auth";
+import getClientList from "services/client";
 function ClientList() {
   const [tableData, setTableData] = React.useState([{
     Checked: false,
@@ -23,47 +25,65 @@ function ClientList() {
     FaxNumber: "", Fax: "", Status: "", MaxBorrowAmount: "", Dealer_id: "",
   }])
   const history = useHistory();
-  const [status, setStatus] = React.useState(false)
   const [toSearch, setToSearch] = React.useState("")
   const [filterTableData, setFilterTableData] = React.useState([])
+  const [token, setToken] = React.useState(null);
+  const [formData, setFormData] = React.useState({
+    email: "anasmisbah@yahoo.com",
+    password: "12345678"
+  })
   useEffect(() => {
+    login(formData)
+    if (!checkUser()) {
+      history.push('/admin/dashboard')
+      return;
+    }
     setFilterTableData([])
-    setTableData([{
-      Checked: false,
-      Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },
-    {
-      Checked: false,
-      Code: "2", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },
-    {
-      Checked: false,
-      Code: "3", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },
-    {
-      Checked: false,
-      Code: "4", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },
-    {
-      Checked: false,
-      Code: "5", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },
-    {
-      Checked: false,
-      Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
-      FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
-    },])
+    getClientList().
+      then(function (response) {
+        setTableData(response.data)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+
+    // setTableData([{
+    //   Checked: false,
+    //   Code: "1", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },
+    // {
+    //   Checked: false,
+    //   Code: "2", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },
+    // {
+    //   Checked: false,
+    //   Code: "3", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },
+    // {
+    //   Checked: false,
+    //   Code: "4", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },
+    // {
+    //   Checked: false,
+    //   Code: "5", FirstName: "shaffan", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },
+    // {
+    //   Checked: false,
+    //   Code: "6", FirstName: "anas", LastName: "nasir", WorkNo: "none", ContactNo: "0332", WorksAt: "Fast", Email: "shaffan@gmail.com",
+    //   FaxNumber: "None", Fax: "None", Status: false, MaxBorrowAmount: "100", Dealer_id: "1",
+    // },])
 
   }, [])
 
 
 
   useEffect(() => {
+
     let tempTable = []
     tableData.map((item, index) => {
       if ((item.LastName.includes(toSearch) ||
@@ -90,7 +110,7 @@ function ClientList() {
   const deleteRow = (itemToDelete) => {
     setTableData(tableData.filter((item, index) => index !== itemToDelete))
   }
- 
+
   return (
     <>
       <Container fluid>
