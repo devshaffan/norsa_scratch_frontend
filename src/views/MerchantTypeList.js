@@ -94,9 +94,9 @@ function MerchantTypeList() {
           <Col md="12">
             <Card className="card-plain table-plain-bg">
               <Card.Header>
-                <Card.Title as="h4">Kliente</Card.Title>
+                <Card.Title as="h4">Merchant Type</Card.Title>
                 <p className="card-category">
-                  Show's list of Kliente
+                  Show's list of Merchant Type
                 </p>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
@@ -111,9 +111,8 @@ function MerchantTypeList() {
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "green" }}
                   type="submit"
-                  variant="info"
+                  variant="success"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
                       if (item.Checked === true) {
@@ -129,9 +128,8 @@ function MerchantTypeList() {
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "red" }}
                   type="submit"
-                  variant="info"
+                  variant="danger"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
                       if (item.Checked === true) {
@@ -161,6 +159,8 @@ function MerchantTypeList() {
                     <tr>
                       <th className="border-0"> st </th>
                       <th className="border-0">Title</th>
+                      <th className="border-0">Status</th>
+                      <th className="border-0" align="center">Actions</th>
 
                     </tr>
                   </thead>
@@ -197,12 +197,8 @@ function MerchantTypeList() {
                             </Button>
                           }
                           </td>
-                          <td align="center">
-                            <Button onClick={() => history.push('/admin/IssuanceHistory/?id=' + index)}>
-                              <i className="nc-icon nc-notes" style={{ color: "black" }} />
-                            </Button>
-                          </td>
-                          <td align="center">
+                          
+                          <td>
                             <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
                             &nbsp; &nbsp;
                             <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />

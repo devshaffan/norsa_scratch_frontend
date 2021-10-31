@@ -31,6 +31,8 @@ import MerchantTypeList from "views/MerchantTypeList";
 import MerchantList from "views/MerchantList";
 import MerchantForm from "views/MerchantForm";
 import MerchantTypeForm from "views/MerchantTypeForm";
+import PendingPaymentList from "views/PendingPaymentList";
+import IssuanceCardForm from "views/issuanceCardForm";
 const dashboardRoutes = [
   {
     upgrade: true,
@@ -101,9 +103,16 @@ const dashboardRoutes = [
   
   {
     path:"/MerchantTypeForm",
-    name: "Add Kliente",
+    name: "Add Merchant Type",
     icon: "nc-icon nc-circle-09",
     component: MerchantTypeForm,
+    layout: "/admin",
+  },
+  {
+    path: "/PendingPaymentList",
+    name: "Pending Payments ",
+    icon: "nc-icon nc-notes",
+    component: PendingPaymentList,
     layout: "/admin",
   },
  
@@ -119,6 +128,13 @@ const dashboardRoutes = [
     name: "Issuance History",
     icon: "nc-icon nc-circle-09",
     component: IssuanceHistory,
+    layout: "/admin",
+  },
+  {
+    path:"/IssuanceCardForm",
+    name: "Issue Card",
+    icon: "nc-icon nc-circle-09",
+    component: IssuanceCardForm,
     layout: "/admin",
   },
   // {

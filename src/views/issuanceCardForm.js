@@ -16,17 +16,16 @@ import { useHistory } from 'react-router-dom';
 
 import { useEffect } from "react";
 
-function ClientForm() {
+function IssuanceCardForm() {
     const history = useHistory();
     const queryParams = new URLSearchParams(window.location.search);
     const [ClientID, setClientID] = React.useState()
     const [validated, setValidated] = React.useState(false);
     const [formData, setFormData] = React.useState({
-        Code: "", FirstName: "", LastName: "", WorkNo: "",
-        ContactNo: "", WorksAt: "",
-        Email: "", FaxNumber: "",
-        Status: "",
-        MaxBorrowAmount: "", Dealer_id: ""
+        DateTime: "", Amount: "", PaybackPeriod: "", TypeOfPayment: "",
+        DateDeposit: null, Client_id: "",
+        NfcCard_id: "", Merchants_id: "",
+        id: "", status: ""
     });
     useEffect(() => {
 
@@ -47,8 +46,8 @@ function ClientForm() {
             //setFormData(response)
         }
     }, [ClientID])
-    const { Code, FirstName, LastName, WorkNo, ContactNo, WorksAt,
-        Email, FaxNumber, Status, MaxBorrowAmount, Dealer_id } = formData
+    const { DateTime, Amount, PaybackPeriod, TypeOfPayment, DateDeposit,
+        Client_id, NfcCard_id, Merchants_id, id, status } = formData
 
     const validateInput = (name, value) => {
         if (name === "Code") {
@@ -73,8 +72,6 @@ function ClientForm() {
             return "only numbers or spaces"
 
         }
-
-
         return true
     }
 
@@ -115,21 +112,21 @@ function ClientForm() {
                     <Col md="8">
                         <Card>
                             <Card.Header>
-                                <Card.Title as="h4">Add Kliente</Card.Title>
+                                <Card.Title as="h4">Card Issuance</Card.Title>
                             </Card.Header>
                             <Card.Body>
                                 <Form onSubmit={handleSubmit}>
                                     <Row>
-                                        <Col className="pr-1" md="2">
+                                        <Col className="pr-1" md="6">
                                             <Form.Group
                                             >
-                                                <label>Code</label>
+                                                <label>Date</label>
                                                 <Form.Control
                                                     required
                                                     placeholder="123"
-                                                    type="text"
-                                                    value={Code}
-                                                    name="Code"
+                                                    type="date"
+                                                    value={DateTime}
+                                                    name="DateTime"
                                                     onChange={e => handleInputChange(e)}
                                                 ></Form.Control>
                                                 <Form.Control.Feedback type="invalid">
@@ -137,15 +134,15 @@ function ClientForm() {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
-                                        <Col className="px-1" md="5">
+                                        <Col md="6">
                                             <Form.Group>
-                                                <label>Nomber</label>
+                                                <label>Montante</label>
                                                 <Form.Control
                                                     required
                                                     placeholder="Frank"
                                                     type="text"
-                                                    value={FirstName}
-                                                    name="FirstName"
+                                                    value={Amount}
+                                                    name="Amount"
                                                     onChange={e => handleInputChange(e)}
                                                 ></Form.Control>
                                                 <Form.Control.Feedback type="invalid">
@@ -153,17 +150,20 @@ function ClientForm() {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
-                                        <Col className="pl-1" md="5">
+
+                                    </Row>
+                                    <Row>
+                                        <Col className="pr-1" md="6">
                                             <Form.Group>
                                                 <label htmlFor="exampleLastName">
-                                                    Fam
+                                                    Clinet Code
                                                 </label>
                                                 <Form.Control
                                                     required
                                                     placeholder="Semper"
                                                     type="text"
-                                                    value={LastName}
-                                                    name="LastName"
+                                                    value={ClientID}
+                                                    name="ClientID"
                                                     onChange={e => handleInputChange(e)}
                                                 ></Form.Control>
                                                 <Form.Control.Feedback type="invalid">
@@ -171,34 +171,35 @@ function ClientForm() {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
+                                        <Col md="6">
+                                            <Form.Group>
+                                                <label>NFC Card ID</label>
+                                                <Form.Control
+                                                    required
+                                                    placeholder="13"
+                                                    type="text"
+                                                    value={NfcCard_id}
+                                                    name="NfcCard_id"
+                                                    onChange={e => handleInputChange(e)}
+
+                                                ></Form.Control>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Please provide a value.
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+                                        </Col>
+
                                     </Row>
                                     <Row>
                                         <Col className="pr-1" md="6">
                                             <Form.Group>
-                                                <label>Tel Trabou</label>
-                                                <Form.Control
-                                                    required
-                                                    placeholder="00-0000-00"
-                                                    type="text"
-                                                    value={WorkNo}
-                                                    name="WorkNo"
-                                                    onChange={e => handleInputChange(e)}
-
-                                                ></Form.Control>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a value.
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-                                        <Col className="pl-1" md="6">
-                                            <Form.Group>
-                                                <label>Tell Celluar</label>
+                                                <label>Number Of Months</label>
                                                 <Form.Control
                                                     required
                                                     placeholder="042"
                                                     type="text"
-                                                    value={ContactNo}
-                                                    name="ContactNo"
+                                                    value={PaybackPeriod}
+                                                    name="PaybackPeriod"
                                                     onChange={e => handleInputChange(e)}
                                                 ></Form.Control>
                                                 <Form.Control.Feedback type="invalid">
@@ -206,17 +207,15 @@ function ClientForm() {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
-                                    </Row>
-                                    <Row>
-                                        <Col md="12">
+                                        <Col md="6">
                                             <Form.Group>
-                                                <label>Ta taraha na</label>
+                                                <label>Merchant Details</label>
                                                 <Form.Control
                                                     required
                                                     placeholder="Ta taraha na"
                                                     type="text"
-                                                    value={WorksAt}
-                                                    name="WorksAt"
+                                                    value={Merchants_id}
+                                                    name="Merchants_id"
                                                     onChange={e => handleInputChange(e)}
                                                 ></Form.Control>
                                                 <Form.Control.Feedback type="invalid">
@@ -225,75 +224,7 @@ function ClientForm() {
                                             </Form.Group>
                                         </Col>
                                     </Row>
-                                    <Row>
-                                        <Col className="pr-1" md="4">
-                                            <Form.Group>
-                                                <label>Fax</label>
-                                                <Form.Control
-                                                    required
-                                                    placeholder="Fax"
-                                                    type="text"
-                                                    value={FaxNumber}
-                                                    name="FaxNumber"
-                                                    onChange={e => handleInputChange(e)}
-                                                ></Form.Control>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a value.
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-                                        <Col className="px-1" md="4">
-                                            <Form.Group>
-                                                <label>Email</label>
-                                                <Form.Control
-                                                    required
-                                                    placeholder="Email"
-                                                    type="text"
-                                                    value={Email}
-                                                    name="Email"
-                                                    onChange={e => handleInputChange(e)}
-                                                ></Form.Control>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a value.
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-                                        <Col className="pl-1" md="4">
-                                            <Form.Group>
-                                                <label>Kredito Maksimo</label>
-                                                <Form.Control
-                                                    required
-                                                    placeholder="Kredito Maksimo"
-                                                    type="number"
-                                                    value={MaxBorrowAmount}
-                                                    name="MaxBorrowAmount"
-                                                    onChange={e => handleInputChange(e)}
-                                                ></Form.Control>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a value.
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
 
-                                    </Row>
-                                    <Row>
-                                        <Col className="pr-1" md="12">
-                                            <Form.Group>
-                                                <label>Rebendadors</label>
-                                                <Form.Control
-                                                    required
-                                                    placeholder="Rebendadors"
-                                                    type="text"
-                                                    value={Dealer_id}
-                                                    name="Dealer_id"
-                                                    onChange={e => handleInputChange(e)}
-                                                ></Form.Control>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a value.
-                                                </Form.Control.Feedback>
-                                            </Form.Group>
-                                        </Col>
-                                    </Row>
 
                                     <Button
                                         className="btn-fill pull-right"
@@ -314,4 +245,4 @@ function ClientForm() {
     );
 }
 
-export default ClientForm;
+export default IssuanceCardForm;

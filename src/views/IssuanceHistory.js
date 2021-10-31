@@ -84,18 +84,16 @@ function IssuanceHistory() {
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "green" }}
                   type="submit"
-                  variant="info"
+                  variant="success"
                 >
                   Active
                 </Button>
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "red" }}
                   type="submit"
-                  variant="info"
+                  variant="danger"
                   
                 >
                   Block

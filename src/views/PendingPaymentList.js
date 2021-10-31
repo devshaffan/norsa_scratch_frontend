@@ -16,54 +16,48 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useEffect } from "react";
 
-function MerchantList() {
+function PendingPaymentList() {
     const [tableData, setTableData] = React.useState([{
         Checked: false,
-        Code: "", Name: "", AccountNo: "", BankName: "", Status: false
+        Client_id: "", DateDeposit: "", AmounntPaid: "", Status: false
     }])
     const history = useHistory();
-    const [status, setStatus] = React.useState(false)
     const [toSearch, setToSearch] = React.useState("")
     const [filterTableData, setFilterTableData] = React.useState([])
     useEffect(() => {
         setFilterTableData([])
         setTableData([{
             Checked: false,
-            Code: "1", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "1", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },
         {
             Checked: false,
-            Code: "2", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "2", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },
         {
             Checked: false,
-            Code: "3", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "3", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },
         {
             Checked: false,
-            Code: "4", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "4", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },
         {
             Checked: false,
-            Code: "5", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "5", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },
         {
             Checked: false,
-            Code: "6", Name: "shaffan", AccountNo: "nasir", BankName: "none", Status: false
+            Client_id: "6", DateDeposit: "shaffan", AmounntPaid: "2", Status: false
         },])
 
     }, [])
-
-
-
     useEffect(() => {
         let tempTable = []
         tableData.map((item, index) => {
-            if ((item.Code.includes(toSearch) ||
-                item.AccountNo.includes(toSearch) ||
-                item.BankName.includes(toSearch) ||
-                item.Name.includes(toSearch))) {
-
+            if ((item.Client_id.includes(toSearch) ||
+                item.DateDeposit.includes(toSearch) ||
+                item.AmounntPaid.includes(toSearch))) {
             }
             else {
                 tempTable.push(item)
@@ -91,9 +85,9 @@ function MerchantList() {
                     <Col md="12">
                         <Card className="card-plain table-plain-bg">
                             <Card.Header>
-                                <Card.Title as="h4">Merchants</Card.Title>
+                                <Card.Title as="h4">Pending Payments</Card.Title>
                                 <p className="card-category">
-                                    Show's list of Merchants
+                                    Show's list of Pending Payments
                                 </p>
                             </Card.Header>
                             <Card.Body className="table-full-width table-responsive px-1">
@@ -125,7 +119,6 @@ function MerchantList() {
                                 &nbsp; &nbsp;
                                 <Button
                                     className="btn-fill pull-right"
-                                    style={{ backgroundColor: "red" }}
                                     type="submit"
                                     variant="danger"
                                     onClick={() => {
@@ -144,10 +137,10 @@ function MerchantList() {
                                 <br />
                                 <Col md="4">
                                     <Form.Group>
-                                       <label> Filter </label>
+                                        <label> Filter </label>
                                         <Form.Control
                                             type="text"
-                                            placeholder={() =>{ <i className="fa fa-search" />}}
+                                            placeholder={() => { <i className="fa fa-search" /> }}
                                             onChange={(e) => setToSearch(e.target.value)}
                                         ></Form.Control>
                                     </Form.Group>
@@ -156,16 +149,14 @@ function MerchantList() {
                                     <thead>
                                         <tr>
                                             <th className="border-0"> st </th>
-                                            <th className="border-0">Code Negoshi</th>
-                                            <th className="border-0">Nomber Negoshi</th>
-                                            <th className="border-0">Rekening</th>
-                                            <th className="border-0">Bank</th>
+                                            <th className="border-0">kliente Code</th>
+                                            <th className="border-0">fecha di Deposito</th>
+                                            <th className="border-0">Montante total pa fetcha</th>
                                             <th className="border-0">Status</th>
                                             <th className="border-0" >Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                         {tableData.map((item, index) => {
 
                                             if (filterTableData.includes(item)) {
@@ -182,14 +173,13 @@ function MerchantList() {
                                                             temp[index].Checked = !temp[index].Checked
                                                             setTableData(temp)
                                                         }}
-                                                        style={{padding : "15px"}}
+                                                        style={{ padding: "15px" }}
 
                                                     ></Form.Control>
                                                     </td>
-                                                    <td> {item.Code} </td>
-                                                    <td> {item.Name} </td>
-                                                    <td> {item.AccountNo} </td>
-                                                    <td> {item.BankName} </td>
+                                                    <td> {item.Client_id} </td>
+                                                    <td> {item.DateDeposit} </td>
+                                                    <td> {item.AmounntPaid} </td>
                                                     <td> {item.Status ?
                                                         <Button onClick={() => toggleStatus(index)}>
                                                             <i className="fa fa-toggle-on" style={{ color: "green", textAlign: "center" }} />
@@ -200,8 +190,8 @@ function MerchantList() {
                                                         </Button>
                                                     }
                                                     </td>
-                                                    
-                                                    <td >
+
+                                                    <td align="center">
                                                         <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/MerchantForm/?id=' + index)} />
                                                         &nbsp; &nbsp;
                                                         <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
@@ -227,4 +217,4 @@ function MerchantList() {
     );
 }
 
-export default MerchantList;
+export default PendingPaymentList;

@@ -115,9 +115,8 @@ function ClientList() {
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "green" }}
                   type="submit"
-                  variant="info"
+                  variant="success"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
                       if (item.Checked === true) {
@@ -133,9 +132,8 @@ function ClientList() {
                 &nbsp; &nbsp;
                 <Button
                   className="btn-fill pull-right"
-                  style={{ backgroundColor: "red" }}
                   type="submit"
-                  variant="info"
+                  variant="danger"
                   onClick={() => {
                     setTableData(tableData.map((item) => {
                       if (item.Checked === true) {
@@ -165,8 +163,8 @@ function ClientList() {
                     <tr>
                       <th className="border-0"> st </th>
                       <th className="border-0">Code</th>
-                      <th className="border-0">First Nomber</th>
-                      <th className="border-0">Last Nomber</th>
+                      <th className="border-0">Nomber</th>
+                      <th className="border-0">Fam</th>
                       <th className="border-0">Email</th>
                       <th className="border-0">Tell Celluar</th>
                       <th className="border-0">Ta taraha na</th>
@@ -221,7 +219,7 @@ function ClientList() {
                               <i className="nc-icon nc-notes" style={{ color: "black" }} />
                             </Button>
                           </td>
-                          <td align="center">
+                          <td >
                             <i className="fa fa-edit" style={{ color: "green" }} onClick={() => history.push('/admin/ClientForm/?id=' + index)} />
                             &nbsp; &nbsp;
                             <i className="fa fa-trash red" style={{ color: "red" }} onClick={() => { deleteRow(index) }} />
